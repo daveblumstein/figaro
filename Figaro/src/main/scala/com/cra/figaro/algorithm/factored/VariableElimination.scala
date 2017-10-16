@@ -273,7 +273,7 @@ object VariableElimination {
    * entire eliminiation operation
    */
   def eliminationOrder[T](factors: Traversable[Factor[T]], toPreserve: Traversable[Variable[_]], useBestScore: Boolean = true): (Double, List[Variable[_]]) = {
-    val eliminableVars = (Set[Variable[_]]() /: factors)(_ ++ _.variables) -- toPreserve
+    val eliminableVars = (Set[Variable[_]]() /: factors)(_ ++= _.variables) -- toPreserve
     var initialGraph = new VEGraph(factors)
     val candidates = new HeapPriorityMap[Variable[_], Double]
     eliminableVars foreach (v => candidates += v -> initialGraph.score(v))
